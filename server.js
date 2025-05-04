@@ -65,7 +65,7 @@ const logAudit = (req, customNote = "") => {
   );
 
   // Log the request details
-  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress; // get the IP address of the request. Note: req.connection.remoteAddress is deprecated
   const pathAccessed = req.originalUrl;
   const method = req.method;
   const userAgent = req.headers["user-agent"] || "Unknown";
@@ -114,7 +114,7 @@ app.get("/sys/hook/trigger-57829c4/", limiter, (req, res) => {
   logAudit(req, "Reboot endpoint accessed");
 
   const token = req.headers["x-api-key"];
-  const realIP = req.headers["x-forwarded-for"] || req.remoteAddress;
+  const realIP = req.headers["x-forwarded-for"] || req.socket.remoteAddress; // get the IP address of the request.Note: req.connection.remoteAddress is deprecated
 
   // show the IP address of the request in the console
   console.log(
