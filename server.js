@@ -20,7 +20,6 @@ const fs = require("fs");
 const path = require("path");
 const rateLimit = require("express-rate-limit");
 const https = require("https");
-const http = require("http");
 const express = require("express");
 
 const app = express();
@@ -31,7 +30,6 @@ const certificate = fs.readFileSync("ssl/cert.pem", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 const httpsServer = https.createServer(credentials, app);
-const httpServer = http.createServer(app);
 
 // Define your token (in a real-world application, store this securely)
 const AUTH_TOKEN =
@@ -179,11 +177,6 @@ app.get("/sys/hook/trigger-57829c4/", limiter, (req, res) => {
 app.use("*", (req, res) => {
   logAudit(req, "Unhandled route accessed");
   res.socket.destroy();
-});
-
-// start the HTTP server for logging only
-httpServer.listen(80, () => {
-  console.log("HTTP server running on port 80 (for logging only)");
 });
 
 // start the HTTPS server
