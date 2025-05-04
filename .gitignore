@@ -1,0 +1,15 @@
+# Ignore log files
+*.log
+
+# Ignore SSL certificates
+ssl/*.pem
+ssl/*.crt
+ssl/*.key
+
+# Node modules (if npm is used)
+node_modules/
+
+# Optional: environment files
+.env
+.env.local
+.env.development

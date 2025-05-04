@@ -1,0 +1,15 @@
+[Unit]
+Description=Remote Reboot Mini Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /opt/reboot-server/server.js
+WorkingDirectory=/opt/reboot-server
+Restart=always
+User=youruser
+Environment=NODE_ENV=production
+Environment=PORT=51822
+Environment=TOKEN=mysecrettoken
+
+[Install]
+WantedBy=multi-user.target
